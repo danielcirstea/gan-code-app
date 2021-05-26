@@ -1,5 +1,7 @@
-const citiesByTag = require('./citiesByTag');
+const getCitiesByTag = require('./getCitiesByTag');
+const computeDistance = require('./computeDistance');
 
 module.exports = {
-    citiesByTag
+    computeDistance,
+    getCitiesByTag
 };
