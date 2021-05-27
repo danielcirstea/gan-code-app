@@ -11,7 +11,7 @@ const getCitiesByTag = (req, res) => {
         stream
             .pipe(JSONStream.parse())
             .on('data', data => {
-                data.map(item => {
+                data.forEach(item => {
                     if (item.tags.includes(tag) && item.isActive === !!isActive) cities.push(item);
                 })
             })
@@ -25,4 +25,24 @@ const getCitiesByTag = (req, res) => {
     }
 };
 
-module.exports = getCitiesByTag;
+
+const getAllCities = (_req, res) => {
+    try {
+        const stream = fs.createReadStream(__dirname + '/data/addresses.json');
+
+        stream
+            .pipe(JSONStream.parse())
+            .on('data', data => {
+                res.status(200).json(data);
+            });
+
+    } catch (error) {
+        console.log('[ALL-CITIES][ERROR] Failed to retrieve a city', error);
+        res.status(500).json(error);
+    }
+};
+
+module.exports = {
+    getCitiesByTag,
+    getAllCities,
+};

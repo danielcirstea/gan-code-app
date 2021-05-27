@@ -11,7 +11,10 @@ app.use(helmet());
 
 app.get('/cities-by-tag', verifyToken, controllers.getCitiesByTag);
 app.get('/distance', verifyToken, controllers.computeDistance);
+app.get('/area', verifyToken, controllers.computeResultsUrl);
+app.get('/area-result/:id', verifyToken, controllers.computeAllDistances);
+app.get('/all-cities', verifyToken, controllers.getAllCities);
 
-app.use('/', (_req, res) => res.status(200).json({ name: packageJson.name, version: packageJson.version, status: 'online '}));
+app.use('*', (_req, res) => res.status(200).json({ name: packageJson.name, version: packageJson.version, status: 'online '}));
 
 app.listen(config.port, () => console.log(`[APP][START] App listening on port ${config.port}.`));
